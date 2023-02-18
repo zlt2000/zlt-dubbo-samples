@@ -40,17 +40,20 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>${jib-maven-plugin.version}</version>
                 <configuration>
+                    <!-- 拉取所需的基础镜像 - 这里用于运行springboot项目 -->
                     <from>
                         <image>openjdk:8-jre-alpine</image>
                     </from>
+                    <!-- 生成的镜像配置 -->
                     <to>
+                        <!-- 如果是阿里云的容器镜像仓库，则使用容器的配置：前缀/命名空间/仓库名 -->
                         <image>registry.cn-guangzhou.aliyuncs.com/zlt-test/${project.artifactId}:${project.version}</image>
                         <tags>
                             <!--版本号-->
                             <tag>${project.version}</tag>
                         </tags>
                         <auth>
-                            <!--在docker-hub或者阿里云上的账号和密码-->
+                            <!--在docker-hub或者阿里云仓库的账号和密码-->
                             <username>${docker.registry.username}</username>
                             <password>${docker.registry.password}</password>
                         </auth>
@@ -61,6 +64,7 @@
                         <mainClass>org.zlt.NacosProviderApp</mainClass>
                         <!--使用该参数将镜像的创建时间与系统时间对其-->
                         <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                        <!--jvm启动参数-->
                         <jvmFlags>
                             <jvmFlag>-Xms128m</jvmFlag>
                             <jvmFlag>-Xmx128m</jvmFlag>
@@ -68,11 +72,13 @@
                             <jvmFlag>-Dfile.encoding=UTF8</jvmFlag>
                         </jvmFlags>
                         <ports>
+                            <!--暴漏端口号-->
                             <port>20880</port>
                         </ports>
                     </container>
                 </configuration>
                 <executions>
+                    <!-- 执行打包配置 -->
                     <execution>
                         <id>jib-maven-plugin</id>
                         <phase>package</phase>
