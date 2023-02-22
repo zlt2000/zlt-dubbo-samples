@@ -5,7 +5,7 @@ spring:
 dubbo:
   application:
     name: ${spring.application.name}
-    #provider注册模式，可选值 interface(接口级)、instance(应用级)、all，默认是all(双注册)
+    #注册模式，可选值 interface(接口级)、instance(应用级)、all，默认是all(双注册)
     register-mode: instance
     #consumer服务发现模式
     service-discovery:
@@ -14,6 +14,6 @@ dubbo:
       # FORCE_APPLICATION，只消费应用级地址，如无地址则报错，单订阅 3.x 地址
       migration: FORCE_APPLICATION
   registry:
-    address: nacos://192.168.28.130:8848
+    address: ${DUBBO_REGISTRY_ADDRESS:nacos://192.168.28.138:8848}
   protocol:
-    port: 20880
+    port: ${DUBBO_PROTOCOL_PORT:20880}
