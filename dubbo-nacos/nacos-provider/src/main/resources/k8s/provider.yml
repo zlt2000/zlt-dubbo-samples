@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zlt-nacos-provider
+spec:
+  clusterIP: None
+  selector:
+    app: zlt-nacos-provider
+  ports:
+    - protocol: TCP
+      port: 20880
+      targetPort: 20880
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zlt-nacos-provider
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zlt-nacos-provider
+  template:
+    metadata:
+      labels:
+        app: zlt-nacos-provider
+    spec:
+      imagePullSecrets:
+        - name: aliyuncs
+      containers:
+        - name: server
+          image: registry.cn-guangzhou.aliyuncs.com/zlt-test/nacos-provider:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 20880
+          env:
+            - name: DUBBO_REGISTRY_ADDRESS
+              value: "nacos://nacos-standalone:8848"
+            - name: DUBBO_IP_TO_REGISTRY
+              value: "zlt-nacos-provider"
