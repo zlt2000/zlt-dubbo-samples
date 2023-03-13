@@ -8,4 +8,4 @@
 
 &nbsp;
 ### 三、基于 Kubernetes(k8s) 部署可查看文章
-[基于Kubernetes(k8s)部署Dubbo+Nacos服务]()
+[基于Kubernetes(k8s)部署Dubbo+Nacos服务](https://mp.weixin.qq.com/s/B2_JqBhCPE4AM-CCSPTT6w)
